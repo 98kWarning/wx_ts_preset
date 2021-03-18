@@ -1,0 +1,51 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+html,body{
+    height: 100%;
+}
+#app{
+    width: 100%;
+    height: 100%;
+    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica,
+    Segoe UI, Arial, Roboto, "PingFang SC", miui, "Hiragino Sans GB",
+    "Microsoft Yahei", sans-serif;
+}
+
+.row{
+    display: flex;
+    flex-direction: row;
+}
+
+.col{
+    display: flex;
+    flex-direction: column;
+}
+
+.col-center{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.row-center{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.item-center{
+    justify-content: center;
+}
+
+.item-between{
+    justify-content:space-between;
+}
+
+.center{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
