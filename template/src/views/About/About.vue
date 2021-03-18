@@ -5,21 +5,21 @@
   </div>
 </template>
 
-<script lant="ts">
+<script lang="ts">
 import { defineComponent,reactive,toRefs,inject } from 'vue';
 
 export default defineComponent({
   name: 'About',
   setup(){
 
-    const updateTitle: Function = inject('setNavTitle')
+    const updateTitle: (title: string)=>void|undefined = inject('setNavTitle')
 
     const state = reactive({
 
     })
 
     const setTitle = ()=>{
-      updateTitle('关于页面')
+      updateTitle&&updateTitle('关于页面')
     }
 
     setTitle()

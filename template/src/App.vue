@@ -35,7 +35,7 @@ export default defineComponent({
 
     provide('setNavTitle',setNavTitle)
 
-    let routerView: any;
+    let routerView;
     onMounted(() => {
       routerView = document.querySelector('#my_router_view');
       router.afterEach((to) => {

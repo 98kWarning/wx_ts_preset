@@ -1,5 +1,5 @@
 export interface StoreState{
-    user: User|{};
+    user: User|Record<string, unknown>;
     isLogin: boolean;
 }
 

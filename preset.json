@@ -6,15 +6,22 @@
   "vuex": false,
   "plugins": {
     "@vue/cli-plugin-babel": {},
-    "@vue/cli-plugin-eslint": {
-      "config": "standard"
+    "@vue/cli-plugin-typescript": {
+      "classComponent": false,
+      "useTsWithBabel": true
     },
-    "@vue/cli-plugin-unit-jest": {}
-  },
-  "configs": {
-    "eslintConfig": {
-      "rules": {
-        "no-alert": 0
+    "@vue/cli-plugin-vuex": {},
+    "@vue/cli-plugin-eslint": {
+      "config": "base",
+      "lintOn": [
+        "save"
+      ]
+    },
+    "configs": {
+      "eslintConfig": {
+        "rules": {
+          "no-alert": 0
+        }
       }
     }
   }

@@ -13,8 +13,8 @@ module.exports = (api, options, rootOptions) => {
     },
     devDependencies: {
       'vconsole-webpack-plugin': '^1.5.2',
-      "@typescript-eslint/eslint-plugin": "^2.33.0",
-      "@typescript-eslint/parser": "^2.33.0",
+      "@typescript-eslint/eslint-plugin": "^4.18.0",
+      "@typescript-eslint/parser": "^4.18.0",
       "@vue/cli-plugin-babel": "~4.5.0",
       "@vue/cli-plugin-eslint": "~4.5.0",
       "@vue/cli-plugin-router": "~4.5.0",

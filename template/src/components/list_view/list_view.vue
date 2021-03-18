@@ -25,13 +25,13 @@
   <div @click="errorClick" v-if="viewStatus === 'error'">
     <slot name="error">
       <span class="list-view-center">{{ errorText }}</span>
-    </slot> 
+    </slot>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, onMounted, onBeforeUnmount, computed } from "vue";
-function debounce(callBack: Function, millisecond: number) {
+function debounce(callBack:()=>void, millisecond: number) {
   let timeout = -1;
   return function () {
     if (timeout) {
@@ -145,7 +145,7 @@ export default defineComponent({
       return props.listData;
     })
 
-    let debounceFun: any;
+    let debounceFun: ()=>void;
 
     const loading = () => {
       if (props.finished) {
@@ -193,7 +193,7 @@ export default defineComponent({
       }
     });
 
-    const itemKeyFun = (item: any,index: number)=>{
+    const itemKeyFun = (item: Record<string, unknown>,index: number)=>{
         if(viewStatus.value==='init'){
           return index;
         }
@@ -274,7 +274,7 @@ export default defineComponent({
   100% {
     background-position: 100% 100%;
   }
-  
+
 }
 
 .list-view-center{

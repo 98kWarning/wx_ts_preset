@@ -3,7 +3,7 @@ import Store from "../store";
 import qs from 'qs';
 
 
-export function post(requestBean: RequestBean,params: any = {}): Promise<ResponseBean>{
+export function post(requestBean: RequestBean,params:Record<string, unknown> = {}): Promise<ResponseBean>{
     if(Store.state.isLogin){
         params['staff_id'] = Store.getters.getUser.staffId;
     }
