@@ -1,8 +1,9 @@
 <template>
   <div class="home col">
-    <clam-view :res="res">
-      <span>Home</span>
-        <router-link to="/about" >About</router-link>
+    <clam-view :res="response" v-slot="{data}" :empty-data="emptyData">
+      <p><span>{{data.name}}</span></p>
+      <p>Home</p>
+      <router-link to="/about" >{{data.route}}</router-link>
     </clam-view>
   </div>
 </template>
@@ -16,17 +17,26 @@ export default defineComponent({
   setup(){
 
     const state = reactive({
-      res:new ResponseBean().loading()
+      response:new ResponseBean().loading()
     })
 
     onMounted(()=>{
       setTimeout(()=>{
-        state.response = new ResponseBean(0,'',{})
+        state.response = new ResponseBean(0,'',{
+          name:'Home',
+          route:'About'
+        })
       },1500)
     })
 
+    const emptyData = {
+      name:'站位文字',
+      route:'站位文字'
+    }
+
     return {
-      ...toRefs(state)
+      ...toRefs(state),
+      emptyData
     }
   }
 });
@@ -34,4 +44,3 @@ export default defineComponent({
 
 <style scoped>
 </style>
-
