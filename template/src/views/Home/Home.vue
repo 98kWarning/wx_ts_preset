@@ -1,19 +1,28 @@
 <template>
   <div class="home col">
-    Home
-    <router-link to="/about" >About</router-link>
+    <clam-view :res="res">
+      <span>Home</span>
+        <router-link to="/about" >About</router-link>
+    </clam-view>
   </div>
 </template>
 
-<script lant="ts">
-import { defineComponent,reactive,toRefs } from 'vue';
+<script lang="ts">
+import { defineComponent,reactive,toRefs,onMounted } from 'vue';
+import {ResponseBean} from 'bdjf_http'
 
 export default defineComponent({
   name: 'Home',
   setup(){
 
     const state = reactive({
+      res:new ResponseBean().loading()
+    })
 
+    onMounted(()=>{
+      setTimeout(()=>{
+        state.response = new ResponseBean(0,'',{})
+      },1500)
     })
 
     return {
@@ -24,6 +33,5 @@ export default defineComponent({
 </script>
 
 <style scoped>
-@import "home.css";
 </style>
 

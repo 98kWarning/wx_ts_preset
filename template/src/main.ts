@@ -43,7 +43,7 @@ import {HttpUtil} from "bdjf_http";
 import axios from "axios"
 import store from './store'
 import '@/assets/css/public.css'
-import CalmView from './components/clam_view/clam_view.vue'
+import CalmView from './components/clam_view'
 // import  VConsole  from 'vconsole'
 // const vConsole = new VConsole();
 

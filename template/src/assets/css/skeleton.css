@@ -1,0 +1,58 @@
+
+.skeleton-view-default-view span,
+.skeleton-view-default-view a,
+.skeleton-view-default-view img
+{
+    transition: all .7s ease;
+    background-color: rgba(0, 0, 0, 0)
+}
+
+.skeleton-view-empty-view {
+    pointer-events: none;
+}
+.skeleton-view-empty-view span,
+.skeleton-view-empty-view a {
+    color: rgba(0, 0, 0, 0) !important;
+    border-radius: 2px;
+    background: linear-gradient(
+            -45deg,
+            #F5F5F5 0%,
+            #DCDCDC 25%,
+            #F5F5F5 50%,
+            #DCDCDC 75%,
+            #F5F5F5 100%
+    );
+    animation: gradientBG 4s ease infinite;
+    background-size: 400% 400%;
+    background-color:#DCDCDC;
+    transition: all 1s ease;
+}
+/* [src=""],img:not([src])*/
+.skeleton-view-empty-view img {
+    content: url(../../assets/img/no_url.png);
+    border-radius: 2px;
+    background: linear-gradient(
+            -45deg,
+            #F5F5F5 0%,
+            #DCDCDC 25%,
+            #F5F5F5 50%,
+            #DCDCDC 75%,
+            #F5F5F5 100%
+    );
+    animation: gradientBG 4s ease infinite;
+    background-size: 400% 400%;
+    background-color:#DCDCDC;
+    transition: all 1s ease;
+}
+@keyframes gradientBG {
+    0% {
+        background-position: 100% 100%;
+    }
+    50% {
+        background-position: 0% 0%;
+    }
+    100% {
+        background-position: 100% 100%;
+    }
+
+}

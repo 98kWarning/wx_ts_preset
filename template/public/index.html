@@ -13,5 +13,27 @@
     </noscript>
     <div id="app"></div>
     <!-- built files will be auto injected -->
+    <script>
+      /* 适配字体大小
+       * docEl.style.fontSize = a * (clientWidth / b) + 'px';
+       * b为设计稿的宽
+       * a为在标准屏宽下rem的px值
+       * x为在设计稿上量得的px
+       * 计算：x/b*b/a=>x/a
+       * 使用：使用前，先按照设计稿宽值自定义b值，并尽量把a值定义为1,10,100等，以便计算
+       * */
+      (function(doc, win) {
+        var docEl = doc.documentElement,
+                resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+                recalc = function() {
+                  var clientWidth = docEl.clientWidth;
+                  if (!clientWidth) return;
+                  docEl.style.fontSize = 100 * (clientWidth / 750) + 'px';
+                };
+        if (!doc.addEventListener) return;
+        win.addEventListener(resizeEvt, recalc, false);
+        doc.addEventListener('DOMContentLoaded', recalc, false);
+      })(document, window);
+    </script>
   </body>
 </html>
