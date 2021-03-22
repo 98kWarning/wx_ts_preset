@@ -1,7 +1,6 @@
 import { createStore } from 'vuex'
 import { User,StoreState } from './type'
 import {HttpUtil} from "bdjf_http";
-import axios from "axios"
 import {ProjectConfig} from "@/config";
 
 export default createStore<StoreState>({
@@ -14,22 +13,14 @@ export default createStore<StoreState>({
       state.user = newUser;
       state.isLogin = true;
       sessionStorage.setItem(ProjectConfig.SESSION_IS_LOGIN,"true");
-      sessionStorage.setItem(ProjectConfig.SESSION_USER,JSON.stringify(newUser))
-      const httpUtil = new HttpUtil()
-      const baseUrl = process.env.VUE_APP_SERVER
-      const axiosInstance = axios.create({
-        baseURL: baseUrl,
-        timeout: 5000,
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-          'x-clixgo-sessionid':newUser.sessionId
-        }
-      });
-      httpUtil.setAxios(axiosInstance)
+      sessionStorage.setItem(ProjectConfig.SESSION_USER,JSON.stringify(newUser));
+      HttpUtil.setAxiosHeader(ProjectConfig.HEADER_TOKEN_NAME,newUser.sessionId);
     },
     logout(state){
       state.user = {};
       state.isLogin = false;
+      sessionStorage.removeItem(ProjectConfig.SESSION_IS_LOGIN);
+      sessionStorage.removeItem(ProjectConfig.SESSION_USER);
     }
   },
   getters: {

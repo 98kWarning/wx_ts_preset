@@ -48,8 +48,6 @@ import {ProjectConfig} from "@/config";
 // import  VConsole  from 'vconsole'
 // const vConsole = new VConsole();
 
-const httpUtil = new HttpUtil()
-
 const baseUrl = process.env.VUE_APP_SERVER
 
 const axiosInstance = axios.create({
@@ -58,8 +56,8 @@ const axiosInstance = axios.create({
     headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 });
 
-httpUtil.setAxios(axiosInstance)
-httpUtil.initConfig({
+HttpUtil.setAxios(axiosInstance)
+HttpUtil.initConfig({
     codeName:'code',
     msgName:'msg',
     dataName:'data',
@@ -83,11 +81,9 @@ httpUtil.initConfig({
 
 
 const app = createApp(App)
-
 coms.map(com =>{
     app.use(com)
 })
-
 app.component('clam-view',CalmView)
 
 
