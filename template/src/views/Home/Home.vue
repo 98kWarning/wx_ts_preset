@@ -26,7 +26,7 @@ export default defineComponent({
           name:'Home',
           route:'About'
         })
-      },1500)
+      },2500)
     })
 
     const emptyData = {
