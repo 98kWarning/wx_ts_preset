@@ -1,6 +1,6 @@
 import {computed, defineComponent, nextTick, onMounted, onUpdated, PropType, ref, watch} from 'vue';
 import './list_view.css'
-import '../../assets/css/skeleton.css'
+import '@/assets/css/skeleton.css'
 
 import { useRect, useScrollParent, useEventListener } from '@/use';
 import {isHidden} from "@/util/Utils";

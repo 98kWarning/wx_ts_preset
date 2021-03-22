@@ -1,7 +1,7 @@
 import { defineComponent,computed } from 'vue';
 import {ResponseBean} from "bdjf_http";
 import './clam_view.css'
-import '../../assets/css/skeleton.css'
+import '@/assets/css/skeleton.css'
 
 type ViewStatusType = 'LOADING'|'EMPTY'|'SHOW'|'ERROR';
 

@@ -13,7 +13,7 @@ import Store from '@/store'
 import { useRoute } from 'vue-router'
 import {API,post} from '@/http';
 import router from '@/router'
-import {Config} from "../config"
+import {WxAuthConfig} from "@/config"
 
 const getMyParams = () => {
       // 将search字符串转为对象
@@ -32,7 +32,7 @@ const getMyParams = () => {
 }
 
 export default defineComponent({
-  name: 'qwauth',
+  name: 'WxAuth',
   setup(){
     const errorMsg = ref('')
     const idProd = process.env.NODE_ENV === 'production';
@@ -45,7 +45,7 @@ export default defineComponent({
         WeixinJSBridge?.call('closeWindow');
         return
       }
-      
+
       const params = getMyParams();
       console.log('-----getMyParams-----',params)
       if(params.code){
@@ -67,9 +67,9 @@ export default defineComponent({
         })
       }else{
         const auth = {
-          copid: Config.copid,
-          redirectUri: encodeURIComponent(Config.redirectUri),
-          state: Config.state
+          copid: WxAuthConfig.copid,
+          redirectUri: encodeURIComponent(WxAuthConfig.redirectUri),
+          state: WxAuthConfig.state
         }
         const authUrl = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${auth.copid}&redirect_uri=${auth.redirectUri}&response_type=code&scope=snsapi_base&state=${auth.state}#wechat_redirect`
         setTimeout(()=>{
@@ -77,7 +77,7 @@ export default defineComponent({
         },500)
       }
     }else{
-      const testUser = Config.getTestUser();
+      const testUser = WxAuthConfig.getTestUser();
       Store.commit('setUser',testUser);
       router.replace({
         path:'/home'

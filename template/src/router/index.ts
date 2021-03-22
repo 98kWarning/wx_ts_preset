@@ -1,6 +1,6 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
 import Home from '@/views/Home/Home.vue'
-import QwAuth from '@/views/QwAuth/QwAuth.vue'
+import WxAuth from '@/views/WxAuth/WxAuth.vue'
 import About from '@/views/About/About.vue'
 
 const routes: Array<RouteRecordRaw> = [
@@ -14,9 +14,9 @@ const routes: Array<RouteRecordRaw> = [
     }
   },
   {
-    path: '/qWauth',
-    name: 'QwAuth',
-    component: QwAuth,
+    path: '/wxauth',
+    name: 'WxAuth',
+    component: WxAuth,
     meta: {
       title: '登录',
       hideNavBar:true

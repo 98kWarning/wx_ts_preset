@@ -44,6 +44,7 @@ import axios from "axios"
 import store from './store'
 import '@/assets/css/public.css'
 import CalmView from './components/clam_view'
+import {ProjectConfig} from "@/config";
 // import  VConsole  from 'vconsole'
 // const vConsole = new VConsole();
 
@@ -91,19 +92,19 @@ app.component('clam-view',CalmView)
 
 
 //从session中登录，防止点击刷新丢失登录又回到首页
-const isLogin = sessionStorage.getItem("_clixgo_is_login") === 'true';
+const isLogin = sessionStorage.getItem(ProjectConfig.SESSION_IS_LOGIN) === 'true';
 if(isLogin){
-    const sessionUser = JSON.parse(sessionStorage.getItem("_clixgo_user")||'')
+    const sessionUser = JSON.parse(sessionStorage.getItem(ProjectConfig.SESSION_IS_LOGIN||''));
     if(sessionUser){
-        store.commit('setUser',sessionUser)
+        store.commit('setUser',sessionUser);
     }
 }
 router.beforeEach((to, from ,next) => {
     // if (to.meta && to.meta.title) document.title = <string>to.meta.title;
-    if(to.path === '/qWauth'){
+    if(to.path === '/wxauth'){
         next()
     }else{
-        store.state.isLogin?next():next('/qWauth')
+        store.state.isLogin?next():next('/wxauth')
     }
 })
 
