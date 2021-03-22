@@ -90,7 +90,7 @@ app.component('clam-view',CalmView)
 //从session中登录，防止点击刷新丢失登录又回到首页
 const isLogin = sessionStorage.getItem(ProjectConfig.SESSION_IS_LOGIN) === 'true';
 if(isLogin){
-    const sessionUser = JSON.parse(sessionStorage.getItem(ProjectConfig.SESSION_IS_LOGIN||''));
+    const sessionUser = JSON.parse(sessionStorage.getItem(ProjectConfig.SESSION_USER||''));
     if(sessionUser){
         store.commit('setUser',sessionUser);
     }
