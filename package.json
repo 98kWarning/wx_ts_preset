@@ -8,13 +8,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/savokiss/vue-preset-template.git"
+    "url": "git+https://gitee.com/wqja/vue3_ts_preset.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "wqj",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/savokiss/vue-preset-template/issues"
+    "url": "https://gitee.com/wqja/vue3_ts_preset/issues"
   },
-  "homepage": "https://github.com/savokiss/vue-preset-template#readme"
+  "homepage": "https://gitee.com/wqja/vue3_ts_preset"
 }
