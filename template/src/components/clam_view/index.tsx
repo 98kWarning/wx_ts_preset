@@ -5,6 +5,15 @@ import '@/assets/css/skeleton.css'
 
 type ViewStatusType = 'LOADING'|'EMPTY'|'SHOW'|'ERROR';
 
+
+interface ClamProps{
+    res:ResponseBean;
+    showLoading:boolean;
+    emptyText:string;
+    emptyData:Record<string,unknown>;
+    noPackage:boolean;
+}
+
 export default defineComponent({
     name:'ClamViewTSX',
     props:{
@@ -39,7 +48,7 @@ export default defineComponent({
             }
         }
     },
-    setup(props,{ emit, slots }) {
+    setup(props:ClamProps,{ slots }) {
 
         const viewStatusAdapter = (response: ResponseBean): ViewStatusType => {
             // console.log('----viewStatusAdapter----',response)
