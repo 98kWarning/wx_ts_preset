@@ -11,9 +11,13 @@
 <script lang="ts">
 import { defineComponent,reactive,toRefs,onMounted } from 'vue';
 import {ResponseBean} from 'bdjf_http'
+import ClamView from '@/components/clam_view/index'
 
 export default defineComponent({
   name: 'Home',
+  components:{
+    ClamView
+  },
   setup(){
 
     const state = reactive({
