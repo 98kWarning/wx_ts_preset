@@ -7,7 +7,7 @@ module.exports = (api, options, rootOptions) => {
       "bdjf_http": "^1.0.11",
       "core-js": "^3.6.5",
       "vant": "^3.0.9",
-      "vue": "^3.0.0",
+      "vue": "^3.1.1",
       "vue-router": "^4.0.0-0",
       "vuex": "^4.0.0-0"
     },
