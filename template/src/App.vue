@@ -1,39 +1,42 @@
 <template>
-  <div id="container" class="col">
-    <van-nav-bar
-        v-if="showCommonNavBar&&!isIos"
+  <van-config-provider style="height: 100%" :theme-vars="themeVars">
+    <div id="container" class="col">
+      <van-nav-bar
+        v-if="showCommonNavBar && !isIos"
         :title="titleText"
         left-text="返回"
         left-arrow
         @click-left="onClickLeft"
-    />
-    <div id="my_router_view" :class="isIos&&showCommonNavBar?'ios_class':''">
-      <router-view>
-      </router-view>
+      />
+      <div id="my_router_view" :class="isIos && showCommonNavBar ? 'ios_class' : ''">
+        <router-view></router-view>
+      </div>
     </div>
-  </div>
+  </van-config-provider>
 </template>
 <script lang="ts">
-import { defineComponent, ref, onMounted,provide } from "vue";
+import { defineComponent, ref, onMounted, provide } from "vue";
 import router from "./router";
-import {webIsIos} from '@/util/Utils'
+import { webIsIos } from '@/util/Utils'
+import { getTheme } from "@/util/Utils";
 
 export default defineComponent({
   name: "App",
   setup() {
     const showCommonNavBar = ref(true);
     const titleText = ref("");
+    const themeVars = getTheme();
 
     const isIos = webIsIos()
     const setNavTitle = (title: string) => {
-      if(isIos){
+      if (isIos) {
         document.title = title;
-      }else {
+      } else {
         titleText.value = title;
       }
     }
 
-    provide('setNavTitle',setNavTitle)
+    provide('setNavTitle', setNavTitle)
 
     let routerView;
     onMounted(() => {
@@ -61,14 +64,15 @@ export default defineComponent({
       titleText,
       showCommonNavBar,
       onClickLeft,
-      isIos
+      isIos,
+      themeVars
     };
   },
 });
 </script>
 
 <style>
-#container{
+#container {
   width: 100%;
   height: 100%;
 }
@@ -77,7 +81,7 @@ export default defineComponent({
   flex: 1;
   overflow-y: auto;
 }
-.ios_class{
+.ios_class {
   padding-top: 10px;
 }
 </style>

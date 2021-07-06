@@ -19,7 +19,8 @@ const routes: Array<RouteRecordRaw> = [
     component: WxAuth,
     meta: {
       title: '登录',
-      hideNavBar:true
+      hideNavBar:true,
+      notNeedLogin:true
     }
   },
   {
@@ -28,7 +29,7 @@ const routes: Array<RouteRecordRaw> = [
     component: About,
     meta: {
       title: '关于',
-      hideNavBar:false
+      hideNavBar:false,
     }
   },
 ]
