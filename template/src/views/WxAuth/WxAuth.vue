@@ -35,8 +35,8 @@ export default defineComponent({
   name: 'WxAuth',
   setup(){
     const errorMsg = ref('')
-    const idProd = process.env.NODE_ENV === 'production';
-    if(idProd){
+    const isDev = process.env.NODE_ENV === 'development';
+    if(!isDev){
       // alert(sessionStorage.getItem('isLogin'))
       if(sessionStorage.getItem('_clixgo_is_login') === 'true'){
          // eslint-disable-next-line no-undef

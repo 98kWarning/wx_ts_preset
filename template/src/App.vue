@@ -8,7 +8,7 @@
         left-arrow
         @click-left="onClickLeft"
       />
-      <div id="my_router_view" :class="isIos && showCommonNavBar ? 'ios_class' : ''">
+      <div id="my_router_view"  ref="routerContainerView" :class="isIos && showCommonNavBar ? 'ios_class' : ''">
         <router-view></router-view>
       </div>
     </div>
@@ -17,8 +17,7 @@
 <script lang="ts">
 import { defineComponent, ref, onMounted, provide } from "vue";
 import router from "./router";
-import { webIsIos } from '@/util/Utils'
-import { getTheme } from "@/util/Utils";
+import { webIsIos,getTheme } from '@/util/Utils';
 
 export default defineComponent({
   name: "App",
@@ -26,7 +25,7 @@ export default defineComponent({
     const showCommonNavBar = ref(true);
     const titleText = ref("");
     const themeVars = getTheme();
-
+    const routerContainerView = ref(null);
     const isIos = webIsIos()
     const setNavTitle = (title: string) => {
       if (isIos) {
@@ -38,9 +37,8 @@ export default defineComponent({
 
     provide('setNavTitle', setNavTitle)
 
-    let routerView;
+
     onMounted(() => {
-      routerView = document.querySelector('#my_router_view');
       router.afterEach((to) => {
         if (to.meta) {
           if (to.meta.hideNavBar) {
@@ -52,7 +50,7 @@ export default defineComponent({
             setNavTitle((to.meta.title as string))
           }
         }
-        routerView.scrollTop = 0;
+        routerContainerView.value.scrollTop = 0;
       });
     });
 
@@ -65,7 +63,8 @@ export default defineComponent({
       showCommonNavBar,
       onClickLeft,
       isIos,
-      themeVars
+      themeVars,
+      routerContainerView
     };
   },
 });
