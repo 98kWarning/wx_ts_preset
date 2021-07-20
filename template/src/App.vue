@@ -17,7 +17,8 @@
 <script lang="ts">
 import { defineComponent, ref, onMounted, provide } from "vue";
 import router from "./router";
-import { webIsIos,getTheme } from '@/util/Utils';
+import { webIsIos } from '@/util/Utils';
+import { getTheme } from '@/util/Theme';
 
 export default defineComponent({
   name: "App",
