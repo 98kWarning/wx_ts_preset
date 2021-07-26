@@ -1,4 +1,4 @@
-import {HttpUtil, RequestBean, ResponseBean} from 'bdjf_http'
+import {HttpUtil, RequestBean, ResponseBean,createRequest} from 'bdjf_http'
 import Store from "../store";
 import qs from 'qs';
 
@@ -12,8 +12,6 @@ export function post(requestBean: RequestBean,params:Record<string, unknown> = {
 
 export class API{
 
-    public static loginWithCode(): RequestBean{
-        return new RequestBean('/wxapi/loginWithCode',{showLoading:true})
-    }
+    public static readonly loginWithCode = ()=>createRequest('/login');
 
 }

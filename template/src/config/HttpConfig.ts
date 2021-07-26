@@ -21,7 +21,7 @@ export function initHttp() {
         showError(error) {
             Notify({ type: 'danger', message: error.message });
         },
-        showWarn(msg) {
+        showWarn(code,msg) {
             Notify({ type: 'warning', message: msg });
         },
         showLoading() {
