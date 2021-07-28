@@ -18,7 +18,7 @@
 import { defineComponent, ref, onMounted, provide } from "vue";
 import router from "./router";
 import { webIsIos } from '@/util/Utils';
-import { getTheme } from '@/util/Theme';
+import { getTheme } from '@/util/CustomTheme';
 
 export default defineComponent({
   name: "App",
