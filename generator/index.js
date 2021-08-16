@@ -7,7 +7,7 @@ module.exports = (api, options, rootOptions) => {
       "bdjf_http": "^1.0.12",
       "core-js": "^3.6.5",
       "vant": "^3.0.9",
-      "vue": "^3.1.1",
+      "vue": "^3.2.0",
       "vue-router": "^4.0.0-0",
       "vuex": "^4.0.0-0"
     },
@@ -21,12 +21,14 @@ module.exports = (api, options, rootOptions) => {
       "@vue/cli-plugin-typescript": "~4.5.0",
       "@vue/cli-plugin-vuex": "~4.5.0",
       "@vue/cli-service": "~4.5.0",
-      "@vue/compiler-sfc": "^3.0.0",
+      "@vue/compiler-sfc": "^3.2.0",
       "typescript": "~4.1.3"
     },
     scripts: {
-      'serve': 'vue-cli-service serve',
-      'build': 'vue-cli-service build'
+      "serve": "vue-cli-service serve",
+      "serve-prod": "vue-cli-service serve --mode production",
+      "build-test": "vue-cli-service build --mode test",
+      "build-prod": "vue-cli-service build",
     }
   })
 }
