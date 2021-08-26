@@ -21,7 +21,8 @@ export default defineComponent({
             type:ResponseBean,
             default:()=>{
                 return new ResponseBean().loading();
-            }
+            },
+            required:true
         },
         showLoading :{
             type: Boolean,
@@ -50,6 +51,10 @@ export default defineComponent({
     },
     setup(props:ClamProps,{ slots }) {
 
+        const res = props.res;
+
+        const emptyData = props.emptyData;
+
         const viewStatusAdapter = (response: ResponseBean): ViewStatusType => {
             // console.log('----viewStatusAdapter----',response)
             if (props.showLoading) {
@@ -58,13 +63,14 @@ export default defineComponent({
             if (!response) {
                 return "LOADING";
             }
+            if(response.success){
+                if (!response.data || response.data.length === 0) {
+                    return "EMPTY";
+                } else {
+                    return "SHOW";
+                }
+            }
             switch (response.code) {
-                case 0:
-                    if (!response.data || response.data.length === 0) {
-                        return "EMPTY";
-                    } else {
-                        return "SHOW";
-                    }
                 case -100:
                     return "LOADING";
                 default:
@@ -106,14 +112,16 @@ export default defineComponent({
             }else {
                 if(props.noPackage){
                     return slots.default({
-                        data:viewStatus.value==='LOADING'?props.emptyData:props.res.data,
-                        vClass:viewStatus.value==='LOADING'?'skeleton-view-empty-view':'skeleton-view-default-view'
+                        data:viewStatus.value==='LOADING'?(res.data||emptyData):res.data,
+                        vClass:viewStatus.value==='LOADING'?'skeleton-view-empty-view':'skeleton-view-default-view',
+                        coverClass:viewStatus.value==='LOADING'?'cover':''
                     })
                 }else {
                     return (
                         <div  class={viewStatus.value==='LOADING'?'skeleton-view-empty-view':'skeleton-view-default-view'}>
                             {slots.default({
-                                data:viewStatus.value==='LOADING'?props.emptyData:props.res.data
+                                data:viewStatus.value==='LOADING'?(res.data||emptyData):res.data,
+                                coverClass:viewStatus.value==='LOADING'?'cover':''
                             })}
                         </div>
                     )

@@ -4,12 +4,13 @@ module.exports = (api, options, rootOptions) => {
   // 修改 `package.json` 里的字段
   api.extendPackage({
     dependencies: {
-      "bdjf_http": "^1.0.16",
+      "bdjf_http": "^1.0.18",
       "core-js": "^3.6.5",
-      "vant": "^3.0.9",
+      "vant": "^3.2.0",
       "vue": "^3.2.0",
       "vue-router": "^4.0.0-0",
-      "vuex": "^4.0.0-0"
+      "vuex": "^4.0.0-0",
+      "vconsole": "^3.9.1"
     },
     devDependencies: {
       'vconsole-webpack-plugin': '^1.5.2',
