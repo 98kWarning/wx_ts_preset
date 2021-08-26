@@ -51,10 +51,6 @@ export default defineComponent({
     },
     setup(props:ClamProps,{ slots }) {
 
-        const res = props.res;
-
-        const emptyData = props.emptyData;
-
         const viewStatusAdapter = (response: ResponseBean): ViewStatusType => {
             // console.log('----viewStatusAdapter----',response)
             if (props.showLoading) {
@@ -105,6 +101,10 @@ export default defineComponent({
 
 
         return () => {
+            const res = props.res;
+
+            const emptyData = props.emptyData;
+            
             if(viewStatus.value === 'EMPTY'){
                 return emptyView();
             }else if(viewStatus.value === 'ERROR'){
