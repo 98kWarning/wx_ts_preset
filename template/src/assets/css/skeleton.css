@@ -25,7 +25,9 @@
     animation: gradientBG 4s ease infinite;
     background-size: 400% 400%;
     background-color:#DCDCDC;
-    transition: all 1s ease;
+    transition-duration: 1s;
+    transition-timing-function: ease;
+    transition-property: background,width,color;
 }
 /* [src=""],img:not([src])*/
 .skeleton-view-empty-view img {
@@ -42,7 +44,9 @@
     animation: gradientBG 4s ease infinite;
     background-size: 400% 400%;
     background-color:#DCDCDC;
-    transition: all 1s ease;
+    transition-duration: 1s;
+    transition-timing-function: ease;
+    transition-property: background,width,color;
 }
 @keyframes gradientBG {
     0% {
