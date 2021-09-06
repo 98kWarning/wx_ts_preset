@@ -11,7 +11,7 @@
 import { defineComponent,ref} from 'vue'
 import Store from '@/store'
 import { useRoute } from 'vue-router'
-import {API,post} from '@/http';
+import {API} from '@/http';
 import router from '@/router'
 import {WxAuthConfig} from "@/config"
 
@@ -49,12 +49,9 @@ export default defineComponent({
       const params = getMyParams();
       console.log('-----getMyParams-----',params)
       if(params.code){
-        post(
-          API.loginWithCode(),
-          {
-          code: params.code
-         }
-        )
+        API.login({
+          code:params.code
+        })
         .then(res=>{
           if(res.success){
             Store.commit('setUser',res.data)
