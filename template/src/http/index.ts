@@ -1,17 +1,28 @@
-import {HttpUtil, RequestBean, ResponseBean,createRequest} from 'bdjf_http'
-import Store from "../store";
-import qs from 'qs';
+import { sendRequest } from "@/config"
+
+export const API = {
 
 
-export function post(requestBean: RequestBean,params:Record<string, unknown> = {}): Promise<ResponseBean>{
-    if(Store.state.isLogin){
-        params['staff_id'] = Store.getters.getUser.staffId;
-    }
-    return HttpUtil.request(requestBean,qs.stringify(params));
-}
+    login:(data:any)=> sendRequest({
+        url:'login',
+        method:'POST',
+        data:data,
+        loadingText:'登陆中...'
+    }),
 
-export class API{
+    getDefinedStrings:()=> sendRequest({
+        url:'pub/common/getDefinedStrings',
+        method:'POST',
+        loadingText:'获取字符串...',
+        needCache:true
+    }),
 
-    public static readonly loginWithCode = ()=>createRequest('/login');
+    agreementContent:(params:any)=>sendRequest({
+        url:'pub/hospital/agreementContent',
+        method:'POST',
+        data:params,
+        loadingText:'获取协议...',
+        needCache:true
+    },{bindCacheKey:['id']}),
 
 }

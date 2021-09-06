@@ -1,6 +1,6 @@
 import { createStore } from 'vuex'
 import { User,StoreState } from './type'
-import {HttpUtil} from "bdjf_http";
+import { setHeader } from '@/config';
 import {ProjectConfig} from "@/config";
 
 export default createStore<StoreState>({
@@ -14,7 +14,7 @@ export default createStore<StoreState>({
       state.isLogin = true;
       sessionStorage.setItem(ProjectConfig.SESSION_IS_LOGIN,"true");
       sessionStorage.setItem(ProjectConfig.SESSION_USER,JSON.stringify(newUser));
-      HttpUtil.setAxiosHeader(ProjectConfig.HEADER_TOKEN_NAME,newUser.sessionId);
+      setHeader(ProjectConfig.HEADER_TOKEN_NAME,newUser.sessionId);
     },
     logout(state){
       state.user = {};

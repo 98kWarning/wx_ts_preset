@@ -51,7 +51,7 @@ export default defineComponent({
             setNavTitle((to.meta.title as string))
           }
         }
-        routerContainerView.value.scrollTop = 0;
+        routerContainerView.value!.scrollTop = 0;
       });
     });
 

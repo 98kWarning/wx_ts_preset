@@ -4,7 +4,7 @@ module.exports = (api, options, rootOptions) => {
   // 修改 `package.json` 里的字段
   api.extendPackage({
     dependencies: {
-      "bdjf_http": "^1.0.18",
+      "bdjf_http": "^1.1.0",
       "core-js": "^3.6.5",
       "vant": "^3.2.0",
       "vue": "^3.2.0",

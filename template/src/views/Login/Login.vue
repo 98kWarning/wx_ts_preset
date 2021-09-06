@@ -32,7 +32,7 @@ const getMyParams = () => {
 }
 
 export default defineComponent({
-  name: 'WxAuth',
+  name: 'Login',
   setup(){
     const errorMsg = ref('')
     const isDev = process.env.NODE_ENV === 'development';

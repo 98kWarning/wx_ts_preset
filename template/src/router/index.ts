@@ -1,6 +1,6 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
 import Home from '@/views/Home/Home.vue'
-import WxAuth from '@/views/WxAuth/WxAuth.vue'
+import Login from '@/views/Login/Login.vue'
 import About from '@/views/About/About.vue'
 
 const routes: Array<RouteRecordRaw> = [
@@ -14,9 +14,9 @@ const routes: Array<RouteRecordRaw> = [
     }
   },
   {
-    path: '/wxauth',
-    name: 'WxAuth',
-    component: WxAuth,
+    path: '/login',
+    name: 'Login',
+    component: Login,
     meta: {
       title: '登录',
       hideNavBar:true,

@@ -13,5 +13,5 @@ export interface User{
     phone: string;
     userName: string;
     sessionId: string;
-    staffId: number;
+    userId: string;
 }

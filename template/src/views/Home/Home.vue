@@ -1,6 +1,6 @@
 <template>
   <div class="home col">
-    <clam-view :res="res" v-slot="{data}">
+    <clam-view :res="response" v-slot="{data}">
       <p><span>{{data.name}}</span></p>
       <p>Home</p>
       <router-link to="/about" >{{data.route}}</router-link>
@@ -10,7 +10,7 @@
 
 <script lang="ts">
 import { defineComponent,reactive,toRefs,onMounted } from 'vue';
-import {ResponseBean,useLoadingRes} from 'bdjf_http'
+import {createLoading} from '@/config'
 import ClamView from '@/components/clam_view/index'
 
 export default defineComponent({
@@ -20,23 +20,20 @@ export default defineComponent({
   },
   setup(){
 
-    const res = reactive<ResponseBean>(useLoadingRes({
+    const response = reactive(createLoading({
       name:'站位文字',
       route:'站位文字'
     }))
 
     onMounted(()=>{
       setTimeout(()=>{
-        res.update(new ResponseBean(0,'',{
-          name:'Home',
-          route:'About'
-        }))
+        response.update()
       },2500)
     })
 
 
     return {
-      res
+      response
     }
   }
 });

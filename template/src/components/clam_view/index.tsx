@@ -1,27 +1,15 @@
-import { defineComponent,computed } from 'vue';
-import {ResponseBean} from "bdjf_http";
+import { defineComponent,computed,PropType} from 'vue';
+import {BdjfResponse} from "bdjf_http";
 import './clam_view.css'
 import '@/assets/css/skeleton.css'
 
 type ViewStatusType = 'LOADING'|'EMPTY'|'SHOW'|'ERROR';
 
-
-interface ClamProps{
-    res:ResponseBean;
-    showLoading:boolean;
-    emptyText:string;
-    emptyData:Record<string,unknown>;
-    noPackage:boolean;
-}
-
 export default defineComponent({
     name:'ClamViewTSX',
     props:{
         res: {
-            type:ResponseBean,
-            default:()=>{
-                return new ResponseBean().loading();
-            },
+            type:Object as PropType<BdjfResponse>,
             required:true
         },
         showLoading :{
@@ -49,9 +37,9 @@ export default defineComponent({
             }
         }
     },
-    setup(props:ClamProps,{ slots }) {
+    setup(props,{ slots }) {
 
-        const viewStatusAdapter = (response: ResponseBean): ViewStatusType => {
+        const viewStatusAdapter = (response: BdjfResponse): ViewStatusType => {
             // console.log('----viewStatusAdapter----',response)
             if (props.showLoading) {
                 return "LOADING";
@@ -59,18 +47,19 @@ export default defineComponent({
             if (!response) {
                 return "LOADING";
             }
+
+            if(response.isLoading){
+                return "LOADING";
+            }
+
             if(response.success){
                 if (!response.data || response.data.length === 0) {
                     return "EMPTY";
                 } else {
                     return "SHOW";
                 }
-            }
-            switch (response.code) {
-                case -100:
-                    return "LOADING";
-                default:
-                    return "ERROR";
+            }else{
+                return 'ERROR';
             }
         }
 
@@ -94,7 +83,7 @@ export default defineComponent({
 
         const errorView = ()=>{
             if(viewStatus.value === 'ERROR'){
-                 return slots.error?slots.error():noDataView(props.res.msg);
+                 return slots.error?slots.error():noDataView(props.res.msg!);
             }
         }
 
@@ -111,7 +100,7 @@ export default defineComponent({
                 return errorView();
             }else {
                 if(props.noPackage){
-                    return slots.default({
+                    return slots.default?.({
                         data:viewStatus.value==='LOADING'?(res.data||emptyData):res.data,
                         vClass:viewStatus.value==='LOADING'?'skeleton-view-empty-view':'skeleton-view-default-view',
                         coverClass:viewStatus.value==='LOADING'?'cover':''
@@ -119,7 +108,7 @@ export default defineComponent({
                 }else {
                     return (
                         <div  class={viewStatus.value==='LOADING'?'skeleton-view-empty-view':'skeleton-view-default-view'}>
-                            {slots.default({
+                            {slots.default?.({
                                 data:viewStatus.value==='LOADING'?(res.data||emptyData):res.data,
                                 coverClass:viewStatus.value==='LOADING'?'cover':''
                             })}
