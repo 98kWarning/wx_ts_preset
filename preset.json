@@ -12,6 +12,13 @@
       "useTsWithBabel": true
     },
     "@vue/cli-plugin-vuex": {},
+    "@vue/cli-plugin-eslint": {
+      "version": "^3.0.0",
+
+      "config": "recommended",
+
+      "lintOn": ["save", "commit"]
+    },
     "configs": {
     }
   }
