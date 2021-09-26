@@ -1,4 +1,4 @@
-import { BdjfHttp, BdjfRequest, createLoadingRes, HttpConfig,createRequest,CacheOption,RequestOption } from "bdjf_http";
+import { BdjfHttp, BdjfRequest,  HttpConfig,createRequest,CacheOption,RequestOption } from "bdjf_http";
 import { Notify, Toast } from "vant";
 import axios from 'axios';
 import qs from "qs";
@@ -30,10 +30,6 @@ const bdjfConfig:HttpConfig = {
     openLog:false,
 }
 
-export function createLoading (data?:any){
-    return createLoadingRes(0,data);
-}
-
 let httpInstance:BdjfHttp;
 
 export function initHttp(){
@@ -61,6 +57,10 @@ export function initHttp(){
 
 export function setHeader(key:string,token:string){
     httpInstance.axiosInstance.defaults.headers.common[key] = token;
+}
+
+export function createLoading (data?:any){
+    return httpInstance.createLoadingRes(data);
 }
 
 // 这里提供两种风格的send

@@ -2,6 +2,7 @@
   "useTaobaoRegistry": true,
   "packageManager": "yarn",
   "useConfigFiles": true,
+  "cssPreprocessor": "less",
   "router": false,
   "vuex": false,
   "plugins": {
@@ -12,17 +13,13 @@
     },
     "@vue/cli-plugin-vuex": {},
     "@vue/cli-plugin-eslint": {
-      "config": "base",
-      "lintOn": [
-        "save"
-      ]
+      "version": "^3.0.0",
+
+      "config": "recommended",
+
+      "lintOn": ["save", "commit"]
     },
     "configs": {
-      "eslintConfig": {
-        "rules": {
-          "no-alert": 0
-        }
-      }
     }
   }
 }
