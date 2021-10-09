@@ -8,7 +8,7 @@ module.exports = {
         },
         proxy: {
             '/wxapi': {
-                target: 'https://web.clixgo.cn/wxapi',
+                target: 'https://xxxxxx/wxapi',
                 changeOrigin: true,
                 pathRewrite: {
                     '^/wxapi': '' // 重写url，将url中的 '/api' 替换掉

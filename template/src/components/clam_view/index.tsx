@@ -12,12 +12,6 @@ export default defineComponent({
             type:Object as PropType<BdjfResponse>,
             required:true
         },
-        showLoading :{
-            type: Boolean,
-            default:()=>{
-                return false;
-            }
-        },
         emptyText:{
             type: String,
             default:()=>{
@@ -41,9 +35,7 @@ export default defineComponent({
 
         const viewStatusAdapter = (response: BdjfResponse): ViewStatusType => {
             // console.log('----viewStatusAdapter----',response)
-            if (props.showLoading) {
-                return "LOADING";
-            }
+
             if (!response) {
                 return "LOADING";
             }

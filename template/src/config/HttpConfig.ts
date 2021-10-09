@@ -1,4 +1,4 @@
-import { BdjfHttp, BdjfRequest,  HttpConfig,createRequest,CacheOption,RequestOption } from "bdjf_http";
+import { BdjfHttp, BdjfRequest,  HttpConfig,createRequest,createLoading,CacheOption,RequestOption } from "bdjf_http";
 import { Notify, Toast } from "vant";
 import axios from 'axios';
 import qs from "qs";

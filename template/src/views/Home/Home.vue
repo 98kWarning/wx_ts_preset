@@ -9,7 +9,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent,reactive,toRefs,onMounted } from 'vue';
+import { defineComponent,reactive,onMounted } from 'vue';
 import {createLoading} from '@/config'
 import ClamView from '@/components/clam_view/index'
 
