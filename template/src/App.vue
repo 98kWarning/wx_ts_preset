@@ -51,19 +51,27 @@ export default defineComponent({
           return;
         }
         if (routeArr.length < 2) {
-          transitionName.value = "slide-left";
+          forward();
           routeArr.push(to);
           return;
         }
         if (to.name === routeArr[routeArr.length - 2].name) {
-          transitionName.value = "slide-right";
+          reverse();
           routeArr.pop();
         } else {
-          transitionName.value = "slide-left";
+          forward();
           routeArr.push(to);
         }
       });
     });
+
+    const forward = ()=>{
+        transitionName.value = "slide-left";
+    }
+
+    const reverse = ()=>{
+        transitionName.value = "slide-right";
+    }
 
     const onClickLeft = () => {
       router.back();
