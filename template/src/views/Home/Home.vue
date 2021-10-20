@@ -27,7 +27,7 @@ export default defineComponent({
 
     onMounted(()=>{
       setTimeout(()=>{
-        response.update()
+        // response.update()
       },2500)
     })
 

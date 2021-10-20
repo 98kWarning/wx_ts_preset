@@ -5,23 +5,23 @@ import '@/assets/css/skeleton.css'
 
 type ViewStatusType = 'LOADING'|'EMPTY'|'SHOW'|'ERROR';
 
+interface ClamProp {
+    res:BdjfResponse<any>;
+    emptyText:string;
+    noPackage:boolean;
+}
+
 export default defineComponent({
     name:'ClamViewTSX',
     props:{
         res: {
-            type:Object as PropType<BdjfResponse>,
+            type:Object as PropType<BdjfResponse<any>>,
             required:true
         },
         emptyText:{
             type: String,
             default:()=>{
                 return '暂无数据';
-            }
-        },
-        emptyData:{
-            type:Object,
-            default:()=>{
-                return {}
             }
         },
         noPackage:{
@@ -31,9 +31,9 @@ export default defineComponent({
             }
         }
     },
-    setup(props,{ slots }) {
+    setup(props:ClamProp,{ slots }) {
 
-        const viewStatusAdapter = (response: BdjfResponse): ViewStatusType => {
+        const viewStatusAdapter = (response: BdjfResponse<any>): ViewStatusType => {
             // console.log('----viewStatusAdapter----',response)
 
             if (!response) {
@@ -83,8 +83,6 @@ export default defineComponent({
 
         return () => {
             const res = props.res;
-
-            const emptyData = props.emptyData;
             
             if(viewStatus.value === 'EMPTY'){
                 return emptyView();
@@ -93,7 +91,7 @@ export default defineComponent({
             }else {
                 if(props.noPackage){
                     return slots.default?.({
-                        data:viewStatus.value==='LOADING'?(res.data||emptyData):res.data,
+                        data:res.data,
                         vClass:viewStatus.value==='LOADING'?'skeleton-view-empty-view':'skeleton-view-default-view',
                         coverClass:viewStatus.value==='LOADING'?'cover':''
                     })
@@ -101,7 +99,7 @@ export default defineComponent({
                     return (
                         <div  class={viewStatus.value==='LOADING'?'skeleton-view-empty-view':'skeleton-view-default-view'}>
                             {slots.default?.({
-                                data:viewStatus.value==='LOADING'?(res.data||emptyData):res.data,
+                                data:res.data,
                                 coverClass:viewStatus.value==='LOADING'?'cover':''
                             })}
                         </div>

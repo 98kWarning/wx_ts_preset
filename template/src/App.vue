@@ -1,57 +1,67 @@
 <template>
-  <van-config-provider style="height: 100%" :theme-vars="themeVars">
-    <div id="container" class="col">
-      <van-nav-bar
-        v-if="showCommonNavBar && !isIos"
-        :title="titleText"
-        left-text="返回"
-        left-arrow
-        @click-left="onClickLeft"
-      />
-      <div id="my_router_view"  ref="routerContainerView" :class="isIos && showCommonNavBar ? 'ios_class' : ''">
-        <router-view></router-view>
+  <router-view v-slot="{ Component, route }">
+    <van-config-provider style="height: 100%" :theme-vars="themeVars">
+      <div id="container" class="col">
+        <van-nav-bar
+          v-if="!route.meta.hideNavBar"
+          :title="route.meta.title"
+          :left-arrow="!route.meta.hideBackBtn"
+          @click-left="onClickLeft"
+        />
+        <div id="my_router_view" ref="routerContainerView">
+          <transition :name="transitionName">
+            <component :is="Component" />
+          </transition>
+        </div>
       </div>
-    </div>
-  </van-config-provider>
+    </van-config-provider>
+  </router-view>
 </template>
 <script lang="ts">
 import { defineComponent, ref, onMounted, provide } from "vue";
 import router from "./router";
-import { webIsIos } from '@/util/Utils';
-import { getTheme } from '@/util/CustomTheme';
+import { getTheme } from "@/util/CustomTheme";
+import { NavBar, ConfigProvider } from "vant";
+import { RouteLocationNormalized } from "vue-router";
 
 export default defineComponent({
   name: "App",
+  components: {
+    "van-nav-bar": NavBar,
+    "van-config-provider": ConfigProvider,
+  },
   setup() {
-    const showCommonNavBar = ref(true);
-    const titleText = ref("");
     const themeVars = getTheme();
     const routerContainerView = ref(null);
-    const isIos = webIsIos()
+
     const setNavTitle = (title: string) => {
-      if (isIos) {
-        document.title = title;
-      } else {
-        titleText.value = title;
-      }
-    }
+      
+    };
 
-    provide('setNavTitle', setNavTitle)
+    const transitionName = ref("slide-left");
 
+    provide("setNavTitle", setNavTitle);
+
+    const routeArr: RouteLocationNormalized[] = [];
 
     onMounted(() => {
-      router.afterEach((to) => {
-        if (to.meta) {
-          if (to.meta.hideNavBar) {
-            showCommonNavBar.value = false;
-          } else {
-            showCommonNavBar.value = true;
-          }
-          if (to.meta.title) {
-            setNavTitle((to.meta.title as string))
-          }
+      router.beforeEach((to, from) => {
+        if (to.name === from.name) {
+          transitionName.value = "";
+          return;
         }
-        routerContainerView.value!.scrollTop = 0;
+        if (routeArr.length < 2) {
+          transitionName.value = "slide-left";
+          routeArr.push(to);
+          return;
+        }
+        if (to.name === routeArr[routeArr.length - 2].name) {
+          transitionName.value = "slide-right";
+          routeArr.pop();
+        } else {
+          transitionName.value = "slide-left";
+          routeArr.push(to);
+        }
       });
     });
 
@@ -60,12 +70,10 @@ export default defineComponent({
     };
 
     return {
-      titleText,
-      showCommonNavBar,
       onClickLeft,
-      isIos,
       themeVars,
-      routerContainerView
+      routerContainerView,
+      transitionName,
     };
   },
 });
@@ -83,5 +91,56 @@ export default defineComponent({
 }
 .ios_class {
   padding-top: 10px;
+}
+
+.slide-right-enter-active,
+.slide-right-leave-active,
+.slide-left-enter-active,
+.slide-left-leave-active {
+  will-change: transform;
+  transition: all 500ms;
+  position: absolute;
+  width: 100vw;
+  backface-visibility: hidden;
+  perspective: 1000;
+}
+
+.slide-right-enter-active {
+  /* opacity: 0; */
+  animation: re 0.5s ease;
+}
+
+@keyframes re {
+  0% {
+    transform: translate3d(-100%, 0, 0);
+  }
+  100% {
+    transform: translate3d(0%, 0, 0);
+  }
+}
+
+.slide-right-leave-active {
+  /* opacity: 0; */
+  transform: translate3d(100%, 0, 0);
+}
+
+.slide-left-enter-active {
+  /* opacity: 0; */
+  /* background-color: #fff; */
+  animation: le 0.5s ease;
+}
+
+@keyframes le {
+  0% {
+    transform: translate3d(100%, 0, 0);
+  }
+  100% {
+    transform: translate3d(0%, 0, 0);
+  }
+}
+
+.slide-left-leave-active {
+  /* opacity: 0; */
+  transform: translate3d(-100%, 0, 0);
 }
 </style>

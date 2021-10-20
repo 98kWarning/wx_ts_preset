@@ -36,6 +36,17 @@ const routes: Array<RouteRecordRaw> = [
 
 const router = createRouter({
   history:createWebHashHistory(),
+  scrollBehavior(to, from, savedPosition) {
+    // 始终在元素 #main 上方滚动 10px
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve({
+          el: '#my_router_view',
+          top: 0,
+        });
+      }, 500);
+    });
+  },
   routes
 })
 

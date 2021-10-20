@@ -10,6 +10,7 @@ if (inBrowser) {
     Object.defineProperty(opts, 'passive', {
       get() {
         supportsPassive = true;
+        return true;
       },
     });
     window.addEventListener('test-passive', null as any, opts);
