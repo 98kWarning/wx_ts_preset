@@ -1,86 +1,72 @@
 <template>
-  <router-view v-slot="{ Component, route }">
-    <van-config-provider style="height: 100%" :theme-vars="themeVars">
-      <div id="container" class="col">
-        <van-nav-bar
-          v-if="!route.meta.hideNavBar"
-          :title="route.meta.title"
-          :left-arrow="!route.meta.hideBackBtn"
-          @click-left="onClickLeft"
-        />
-        <div id="my_router_view" ref="routerContainerView">
-          <transition :name="transitionName">
-            <component :is="Component" />
-          </transition>
-        </div>
-      </div>
-    </van-config-provider>
-  </router-view>
+  <van-config-provider style="height: 100%" :theme-vars="themeVars">
+    <router-view v-slot="{ Component, route }">
+      <transition :name="transitionName">
+        <!-- 没有key的话,vue的动画无法生效 -->
+        <PageComponents :key="route.path" :route="route" :component="Component" />
+      </transition>
+    </router-view>
+  </van-config-provider>
 </template>
 <script lang="ts">
-import { defineComponent, ref, onMounted, provide } from "vue";
-import router from "./router";
+import { defineComponent, ref, onMounted } from "vue";
 import { getTheme } from "@/util/CustomTheme";
-import { NavBar, ConfigProvider } from "vant";
+import { ConfigProvider } from "vant";
 import { RouteLocationNormalized } from "vue-router";
+import router from '@/router';
+import PageComponents from '@/components/page-components/index.vue';
 
 export default defineComponent({
   name: "App",
   components: {
-    "van-nav-bar": NavBar,
     "van-config-provider": ConfigProvider,
+    PageComponents
   },
   setup() {
     const themeVars = getTheme();
-    const routerContainerView = ref(null);
 
-    const setNavTitle = (title: string) => {
-      
-    };
+    const transitionName = ref("");
 
-    const transitionName = ref("slide-left");
-
-    provide("setNavTitle", setNavTitle);
 
     const routeArr: RouteLocationNormalized[] = [];
 
     onMounted(() => {
       router.beforeEach((to, from) => {
+        let hide = to.meta?.hideAnim || from.meta?.hideAnim;
+
         if (to.name === from.name) {
-          transitionName.value = "";
+          hideRouteAnim();
           return;
         }
         if (routeArr.length < 2) {
-          forward();
+          if (!hide) forward();
           routeArr.push(to);
           return;
         }
         if (to.name === routeArr[routeArr.length - 2].name) {
-          reverse();
+          if (!hide) reverse();
           routeArr.pop();
         } else {
-          forward();
+          if (!hide) forward();
           routeArr.push(to);
         }
       });
     });
 
-    const forward = ()=>{
-        transitionName.value = "slide-left";
+    const hideRouteAnim = () => {
+      transitionName.value = '';
     }
 
-    const reverse = ()=>{
-        transitionName.value = "slide-right";
-    }
+    const forward = () => {
+      transitionName.value = "slide-left";
+    };
 
-    const onClickLeft = () => {
-      router.back();
+    const reverse = () => {
+      transitionName.value = "slide-right";
     };
 
     return {
-      onClickLeft,
       themeVars,
-      routerContainerView,
       transitionName,
     };
   },
@@ -88,15 +74,16 @@ export default defineComponent({
 </script>
 
 <style>
-#container {
+.container {
   width: 100%;
   height: 100%;
 }
-#my_router_view {
-  height: 0;
+.page-sc {
   flex: 1;
   overflow-y: auto;
+  background-color: #f5f5f5;
 }
+
 .ios_class {
   padding-top: 10px;
 }
@@ -106,7 +93,7 @@ export default defineComponent({
 .slide-left-enter-active,
 .slide-left-leave-active {
   will-change: transform;
-  transition: all 500ms;
+  transition: all 0.3s;
   position: absolute;
   width: 100vw;
   backface-visibility: hidden;
@@ -115,7 +102,7 @@ export default defineComponent({
 
 .slide-right-enter-active {
   /* opacity: 0; */
-  animation: re 0.5s ease;
+  animation: re 0.3s ease;
 }
 
 @keyframes re {
@@ -135,7 +122,7 @@ export default defineComponent({
 .slide-left-enter-active {
   /* opacity: 0; */
   /* background-color: #fff; */
-  animation: le 0.5s ease;
+  animation: le 0.3s ease;
 }
 
 @keyframes le {

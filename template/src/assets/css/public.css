@@ -1,6 +1,7 @@
 *{
     padding: 0;
     margin: 0;
+    box-sizing: border-box;
 }
 html,body{
     height: 100%;
@@ -11,6 +12,7 @@ html,body{
     font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica,
     Segoe UI, Arial, Roboto, "PingFang SC", miui, "Hiragino Sans GB",
     "Microsoft Yahei", sans-serif;
+    color: #333333;
 }
 
 .row{
@@ -21,6 +23,10 @@ html,body{
 .col{
     display: flex;
     flex-direction: column;
+}
+
+.f1{
+    flex: 1;
 }
 
 .col-center{
@@ -35,11 +41,15 @@ html,body{
     align-items: center;
 }
 
-.item-center{
+.al-c{
+    align-items: center;
+}
+
+.jcc{
     justify-content: center;
 }
 
-.item-between{
+.jc-sb{
     justify-content:space-between;
 }
 
@@ -48,4 +58,87 @@ html,body{
     flex-direction: row;
     align-items: center;
     justify-content: center;
+}
+
+.card{
+    background: #ffffff;
+    border-radius: 0.044rem;
+}
+
+.page{
+    padding: 0.1rem 0.16rem;
+}
+
+.padding{
+    padding: 0.16rem;
+}
+
+.padding-h{
+    padding-left: 0.16rem;
+    padding-right: 0.16rem;
+}
+
+.padding-v{
+    padding-top: 0.16rem;
+    padding-bottom: 0.16rem;
+}
+
+.mt4{
+    margin-top: 0.04rem;
+}
+
+.mt6{
+    margin-top: 0.06rem;
+}
+
+.mt8{
+    margin-top: 0.08rem;
+}
+
+.mt10{
+    margin-top: 0.10rem !important;
+}
+
+.mt12{
+    margin-top: 0.12rem;
+}
+
+.mt14{
+    margin-top: 0.14rem;
+}
+
+.mt16{
+    margin-top: 0.16rem;
+}
+
+.mt18{
+    margin-top: 0.18rem;
+}
+
+.mt20{
+    margin-top: 0.2rem !important;
+}
+
+.ml6{
+    margin-left: 0.06rem;
+}
+
+.ml8{
+    margin-left: 0..8rem;
+}
+
+.ml10{
+    margin-left: 0.10rem;
+}
+
+.ml12{
+    margin-left: 0.12rem;
+}
+
+.ml14{
+    margin-left: 0.14rem;
+}
+
+.ml20{
+    margin-left: 0.20rem !important;
 }

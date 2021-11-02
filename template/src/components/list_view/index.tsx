@@ -3,7 +3,7 @@ import './list_view.css'
 import '@/assets/css/skeleton.css'
 
 import { useRect, useScrollParent, useEventListener } from '@/use';
-import {isHidden} from "@/util/Utils";
+import {isHidden} from "@/util";
 
 type ViewStatusType = 'INIT'|'SHOW'|'ERROR'|'FINISHED'|'EMPTY';
 

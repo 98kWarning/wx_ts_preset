@@ -13,16 +13,26 @@ import Store from '@/store'
 import { useRoute } from 'vue-router'
 import {API} from '@/http';
 import router from '@/router'
-import {WxAuthConfig} from "@/config"
+import {WxAuthConfig} from "@/config";
 
-const getMyParams = () => {
+const getRedirectParams = (query)=>{
+
+  const {redirectTo,...otherParams} = query;
+
+  return {
+    redirectTo,
+    otherParams
+  }
+}
+
+const getMyParams = (query) => {
       // 将search字符串转为对象
   function searchObj(search) {
       return JSON.parse("{\"".concat(decodeURIComponent(search.substring(1)).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g, '":"'), "\"}"));
   }
-  if(useRoute().query.code){
-    console.log('-----useRoute-----',useRoute().query)
-    return useRoute().query;
+  if(query.sessionid){
+    console.log('-----useRoute-----',query)
+    return query;
   }else if(location.search){
     console.log('-----search-----',location.search)
     const search = searchObj(location.search)
@@ -34,51 +44,60 @@ const getMyParams = () => {
 export default defineComponent({
   name: 'Login',
   setup(){
-    const errorMsg = ref('')
-    const isDev = process.env.NODE_ENV === 'development';
-    if(!isDev){
-      // alert(sessionStorage.getItem('isLogin'))
-      if(sessionStorage.getItem('_clixgo_is_login') === 'true'){
-         // eslint-disable-next-line no-undef
-        console.log(WeixinJSBridge);
-         // eslint-disable-next-line no-undef
-        WeixinJSBridge?.call('closeWindow');
-        return
-      }
 
-      const params = getMyParams();
+    const route = useRoute();
+
+    const redirect = getRedirectParams(route.query);
+
+    console.log('---redirect---',redirect);
+
+    const errorMsg = ref('')
+
+    const isDev = process.env.NODE_ENV === 'development';
+
+    const loginComplete = (user)=>{
+
+      // 完成登录，然后跳转
+      // 此页面中的 redirect 信息参数是在路由拦截中加上的，
+      // 具体代码在 RouterConfig 中
+
+      Store.commit('setUser',user);
+
+      if(redirect.redirectTo){
+        router.replace({
+          path:redirect.redirectTo,
+          query:redirect.otherParams
+        })
+      }else{
+         router.replace({
+          path:'/home'
+        })
+      }
+    }
+
+
+    if(!isDev){
+      const params = getMyParams(route.query);
       console.log('-----getMyParams-----',params)
-      if(params.code){
+      if(params.sessionid){
         API.login({
-          code:params.code
+          sessionId:params.sessionid
         })
         .then(res=>{
           if(res.success){
-            Store.commit('setUser',res.data)
-            router.replace({
-              path:'/home'
-            })
+            if(res.data.userid){
+              loginComplete(res.data);
+            }else{
+              errorMsg.value = '登陆失败，userid为空';
+            }
           }else{
             errorMsg.value = JSON.stringify(res);
           }
         })
-      }else{
-        const auth = {
-          copid: WxAuthConfig.copid,
-          redirectUri: encodeURIComponent(WxAuthConfig.redirectUri),
-          state: WxAuthConfig.state
-        }
-        const authUrl = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${auth.copid}&redirect_uri=${auth.redirectUri}&response_type=code&scope=snsapi_base&state=${auth.state}#wechat_redirect`
-        setTimeout(()=>{
-          window.location.replace(authUrl);
-        },500)
       }
     }else{
       const testUser = WxAuthConfig.getTestUser();
-      Store.commit('setUser',testUser);
-      router.replace({
-        path:'/home'
-      })
+      loginComplete(testUser);
     }
     return {
       errorMsg
@@ -89,6 +108,6 @@ export default defineComponent({
 </script>
 <style>
 .login_page{
-  font-size: .25rem;
+  font-size: .14rem;
 }
 </style>
