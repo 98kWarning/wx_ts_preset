@@ -84,9 +84,6 @@ export default defineComponent({
   background-color: #f5f5f5;
 }
 
-.ios_class {
-  padding-top: 10px;
-}
 
 .slide-right-enter-active,
 .slide-right-leave-active,

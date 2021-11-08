@@ -1,13 +1,17 @@
 <template>
-  <div class="home col">
-    <div class="router-item" v-for="(router,index) in routers" :key="index">
-      <router-link :to="router.path">{{`${router.meta.title} ${String(router.name)}`}}</router-link>
+  <div class="page col">
+    <div class="router-item mt10" v-for="(route,index) in routers" :key="index">
+      <router-link class="col" :to="{path:route.path,query:route?.meta?.testQuery||{}}">
+        <span>标题：{{route.meta.title}}</span>
+        <span>路径：{{String(route.path)}}</span>
+        <span v-if="route?.meta?.testQuery">参数：{{route?.meta?.testQuery}}</span>
+      </router-link>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent,reactive,toRefs,inject } from 'vue';
+import { defineComponent,reactive,toRefs } from 'vue';
 import router from '@/router'
 
 export default defineComponent({
@@ -27,6 +31,9 @@ export default defineComponent({
 
 <style scoped>
 .router-item{
-  padding: 10px;
+  padding: 0.1rem;
+  background-color: #fff;
+  border-radius: 0.05rem;
+  font-size: 0.14rem;
 }
 </style>

@@ -18,6 +18,8 @@ export function getTheme():Record<string,string>{
         cellFontSize:'0.16rem',
         barTitleFontSize:'0.18rem',
         barTitleTextColor:'#333333',
+        navBarTitleFontSize: '0.18rem',
+        navBarArrowSize:'0.20rem',
         navBarTextColor:'#333333',
         navBarIconColor:'#333333',
         fontWeightBold:'600'

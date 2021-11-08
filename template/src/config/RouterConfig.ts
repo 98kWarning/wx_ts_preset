@@ -1,4 +1,4 @@
-import router from '../router/index'
+import router from '@/router'
 import store from '@/store'
 
 const loginUrl = '/login';
